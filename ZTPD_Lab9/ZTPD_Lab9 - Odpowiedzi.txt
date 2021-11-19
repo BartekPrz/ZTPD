@@ -1,0 +1,23 @@
+//ZAD24
+Polecenie: "SELECT IRSTREAM spolka AS X, kursOtwarcia AS Y FROM KursAkcji.win:length(3) WHERE spolka = 'Oracle'"
+Odpowiedź: Klauzula WHERE nie ogranicza zdarzeń, które są wykorzystywane do stworzenia okna. Klauzula WHERE aplikowana jest dopiero przy filtrowaniu zdarzeń w strumieniu zdarzeń wstawianych i usuwanych
+
+//ZAD25
+Polecenie: "SELECT IRSTREAM data, kursOtwarcia, spolka FROM KursAkcji.win:length(3) WHERE spolka = 'Oracle'"
+
+//ZAD26
+Polecenie: "SELECT IRSTREAM data, kursOtwarcia, spolka FROM KursAkcji(spolka='Oracle').win:length(3)"
+
+//ZAD27
+Polecenie: "SELECT ISTREAM data, kursOtwarcia, spolka FROM KursAkcji(spolka='Oracle').win:length(3)"
+
+//ZAD28
+Polecenie: "SELECT ISTREAM data, max(kursOtwarcia), spolka FROM KursAkcji(spolka='Oracle').win:length(5)"
+
+//ZAD29
+Polecenie: "SELECT ISTREAM data, spolka, kursOtwarcia - max(kursOtwarcia) AS roznica FROM KursAkcji(spolka='Oracle').win:length(5)"
+Odpowiedź: Funkcja max oblicza maksimum na podstawie wartości aktualnie znajdujących się w oknie. W SQL funkcja max oblicza maksimum na podstawie wartości znajdujących się w danej grupie (jeśli zastosowano grupowanie) lub na podstawie wartości znajdujących się w danej kolumnie (jeśli nie zastosowano grupowania)
+
+//ZAD30
+Polecenie: "SELECT ISTREAM data, spolka, kursOtwarcia - min(kursOtwarcia) AS roznica FROM KursAkcji(spolka='Oracle').win:length(2) HAVING kursOtwarcia - min(kursOtwarcia) > 0"
+Odpowiedź: Wynik przetwarzania jest poprawny - uzyskane zostały tylko wzrosty
